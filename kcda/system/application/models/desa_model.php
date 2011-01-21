@@ -10,7 +10,8 @@ class Desa_model extends Model {
     function get_semua_kecamatan($order = 'nama')
     {
         $data = array();
-        $q = $this->db->query("SELECT * FROM kecamatan ORDER BY $order");
+        $q = $this->db->order_by($order);
+        $q = $this->db->get("kecamatan");
 
         if($q->num_rows() > 0)
         {

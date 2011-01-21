@@ -14,6 +14,11 @@ class Home extends Controller {
 
     function kecamatan()
     {
-        echo "hi";
+        $data = new stdClass();
+        $data->daftar_kecamatan = $this->desa->get_semua_kecamatan();
+        $data->view_content = "kecamatan";
+        $data->judul = "List kecamatan";
+        $this->load->view('super-admin/base', $data);
     }
+    
 }
