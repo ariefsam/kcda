@@ -4,11 +4,15 @@ class Home extends Controller {
     function Home()
     {
         parent::Controller();
-        $this->load->model('desa_model', 'desa');
+        $this->load->model('Desa_model', 'desa');
+        
+        if(!$this->session->userdata('superadmin'))
+            redirect('super-admin/login');
     }
 
     function index()
     {
+
         redirect('super-admin/home/kecamatan');
     }
 
