@@ -1,8 +1,8 @@
 <?php
 
-class Jumlah_penduduk extends Model {
+class Jumlah_penduduk_model extends Model {
 
-    function Jumlah_penduduk()
+    function Jumlah_penduduk_model()
     {
         parent::Model();
     }

@@ -22,6 +22,7 @@ class Home extends Controller {
         $data->daftar_kecamatan = $this->desa->get_semua_kecamatan();
         $data->view_content = "kecamatan";
         $data->judul = "List kecamatan";
+        $data->title = "List kecamatan";
         $this->load->view('super-admin/base', $data);
     }
     

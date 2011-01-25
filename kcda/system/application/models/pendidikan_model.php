@@ -1,14 +1,4 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of pendidikan_model
- *
- * @author Akbar Riyan Nugroho
- */
 class Pendidikan_model extends Model {
      function Pendidikan_model()
     {

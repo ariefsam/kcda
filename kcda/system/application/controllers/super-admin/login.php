@@ -12,7 +12,7 @@ class Login extends Controller {
         $data = new stdClass();
         $data->view_content = "login";
         $data->judul = "Login Super Admin";
-        $this->load->view('super-admin/base', $data);
+        $this->load->view('super-admin/login', $data);
     }
 
     function submit()
