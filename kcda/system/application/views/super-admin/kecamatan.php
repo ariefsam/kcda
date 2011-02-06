@@ -1,95 +1,101 @@
-<table class="rounded-corner sortable" id="main_table">
-    <thead>
-        <tr>
-            <th width="25" class="rounded-company">No</th>
-            <th>Nama Kecamatan</th>
-            <th>Keterangan</th>
-            <th class="rounded-q4"></th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php if (count($daftar_kecamatan) == 0) : ?>
-        <tr>
-            <td colspan="9" style="text-align: center"><h1>Tidak ada data</h1></td>
-        </tr>
-    <?php else : $i = 1; foreach($daftar_kecamatan as $kecamatan) : ?>
-        <tr id="k<?php echo $kecamatan['id']?>">
-            <td><?php echo $i?></td>
-            <td><?php echo $kecamatan['nama']?></td>
-            <td><?php echo $kecamatan['keterangan']?></td>
-            <td>
-                <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $kecamatan['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" onclick="hapus(<?php echo $kecamatan['id']; ?>)"/>
-            </td>
-        </tr>
-        <tr id="edit<?php echo $kecamatan['id']?>" style="display: none">
-            <td><?php echo $i++?></td>
-            <td><?php echo $kecamatan['nama']?></td>
-            <td><?php echo $kecamatan['keterangan']?></td>
-        </tr>
-    <?php
-        endforeach; endif; ?>
-    </tbody>
-    <tfoot>
-        <tr style="font-size: 15px;">
-            
-        </tr>
-    </tfoot>
-</table>
+<div id="tabs-2">
 
+    <h1>List Kecamatan</h1>
+    <table class="fullwidth" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+            <tr>
+                <th width="25" class="rounded-company">No</th>
+                <th style="text-align: left">&nbsp;&nbsp;&nbsp;Nama Kecamatan</th>
+                <th style="text-align: left">&nbsp;&nbsp;&nbsp;Keterangan</th>
+                <th class="rounded-q4" width="50px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (count($daftar_kecamatan) == 0) : ?>
+                <tr>
+                    <td colspan="9" style="text-align: center"><h1>Tidak ada data</h1></td>
+                </tr>
+            <?php else : $i = 1;
+                    foreach ($daftar_kecamatan as $kecamatan) : ?>
+                        <tr id="row<?php echo $kecamatan['id'] ?>">
+                            <td><?php echo $i ?></td>
+                            <td><?php echo $kecamatan['nama'] ?></td>
+                            <td><?php echo $kecamatan['keterangan'] ?></td>
+                            <td>
+                                <ul class="ui-widget ui-helper-clearfix" id="icons">
+                                    <li title="Edit" class="ui-state-default ui-corner-all">
+                                        <span onclick="edit(<?php echo $kecamatan['id'] ?>)" class="ui-icon ui-icon-pencil">&nbsp;</span>
+                                    </li>
+                                    <li title="Hapus" class="ui-state-default ui-corner-all">
+                                        <span onclick="hapus(<?php echo $kecamatan['id'] ?>)" class="ui-icon ui-icon-closethick"></span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <form id="data<?php echo $kecamatan['id']?>" method="post" action="home/update_kecamatan/<?php echo $kecamatan['id']?>">
+                        <tr id="edit<?php echo $kecamatan['id'] ?>" style="display: none">
+                            <td><?php echo $i++ ?></td>
+                            <td><input size="35" type="text" value="<?php echo $kecamatan['nama'] ?>" name="nama" /></td>
+                            <td><input size="60" type="text" value="<?php echo $kecamatan['keterangan'] ?>" name="keterangan" /></td>
+                            <td>
+                                <ul class="ui-widget ui-helper-clearfix" id="icons">
+                                    <li title="Simpan" class="ui-state-default ui-corner-all">
+                                        <span class="ui-icon ui-icon-disk" onclick="$('#data<?php echo $kecamatan['id'] ?>').submit()"></span>
+                                    </li>
+                                    <li title="Batal" class="ui-state-default ui-corner-all">
+                                        <span onclick="batal(<?php echo $kecamatan['id'] ?>)" class="ui-icon ui-icon-arrowreturnthick-1-w"></span>
+                                    </li>
+                                </ul>            
+                            </td>
+                        </tr>
+                        </form>
+            <?php endforeach;
+                    endif; ?>
+        </tbody>
+        <tfoot>
+            <tr>
+
+                <td colspan="8">Tambahkan data</td>
+            </tr>
+            <tr>
+        <form action="home/insert_kecamatan" id="form" method="post">
+            <td class="rounded-foot-left"></td>
+            <td><input type="text" size="15" maxlength="100" style="width: 100%" name="nama" id="new_kode"/></td>
+            <td><input type="text" size="15" maxlength="100" style="width: 100%" name="keterangan" id="new_kode"/></td>
+
+            <td class="rounded-foot-right"><input type="submit" value="+ Tambahkan" name="submit" class="button blue"/></td>
+        </form>
+        </tr>
+        </tfoot>
+    </table>
+
+
+</div>
 <script type="text/javascript">
+    function hapus(id) {
+    if (confirm("Yakin akan menghapus kontak ini? Kontak yang sudah dihapus tidak akan dapat dikembalikan lagi.")) {
+    $.ajax({
+    url: 'kontak/hapus/' + id,
+    success: function(data) {
+    $('#row' + id).fadeOut('slow');
 
-$(document).ready(function(){
-
-    var inputNama = $('#new_nama');
-
-    $('#form').submit(function(){
-
-        if(inputNama.val() == "" || $('#new_diskon').val() == "" || $('#new_kode').val() == "") return false;
+    }
 
     });
-    $('.entri_baru').css({backgroundColor : 'yellow !important'});
-
-})
-
-function showEditForm(id) {
-        $('#filter').val("");
-        $('.editrow').hide();
-        $('.row').show();
-	$('#baris_' + id).hide();
-	$('#edit_' + id).fadeIn('slow');
-        $('#nama_' + id).focus();
-}
-
-function hideEditForm(id) {
-	$('#edit_' + id).hide();
-	$('#baris_' + id).fadeIn('slow');
-}
-
-$(function() {
-  var theTable = $('#main_table')
-
-  $("#filter").keyup(function() {
-    $.uiTableFilter( theTable, this.value );
-    $('.editrow').hide();
-  })
-});
-
-function hapus(id){
-    if(confirm("Yakin ingin menghapus data ini?")){
-        $.ajax({
-           url: 'index.php/master/agen/hapus/' + id,
-           dataType: 'text',
-           success: function(data){
-               if(data == 1){
-                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
-                   $('#edit_' + id).remove();
-               } else alert("Kesalahan: gagal menghapus data!");
-           },
-           error: function(){
-               alert("Kesalahan: gagal menghapus data!");
-           }
-        });
     }
-}
-
+    }
+    function edit(id) {
+    $('#row' + id).fadeOut('fast', function(){
+    $('#edit' + id).fadeIn();
+    });
+    }
+    function batal(id) {
+    $('#edit' + id).fadeOut('fast', function(){
+    $('#row' + id).fadeIn();
+    });
+    }
 </script>
+
+<!-- End of Main Content -->
+
+
