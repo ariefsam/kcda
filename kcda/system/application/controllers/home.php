@@ -9,8 +9,7 @@ class Home extends Controller {
 
     function index()
     {
-        //redirect('../index.php/super-admin/kecamatan');
-        echo "berhasilddd";
+        redirect('deskriptif');
     }
 
     function kecamatan()
