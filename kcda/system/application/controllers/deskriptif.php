@@ -21,6 +21,8 @@ class Deskriptif extends Controller {
             if ($id_desa != "all") {
                 $nama_desa = $this->desa->get_desa($id_desa);
                 $data = new stdClass();
+                $data->active_data = "deskriptif";
+                $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Jumlah Penduduk > Jenis Kelamin';
                 $data->nama_desa = $nama_desa->nama;
                 $data->id_desa = $nama_desa->id;
                 $data->daftar_desa = $this->desa->get_semua_desa();
@@ -41,6 +43,8 @@ class Deskriptif extends Controller {
         } else if ($variabel == "kelompok_usia") {
             $nama_desa = $this->desa->get_desa($id_desa);
             $data = new stdClass();
+            $data->active_data = "deskriptif";
+            $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Jumlah Penduduk > Kelompok Usia';
             $data->nama_desa = $nama_desa->nama;
             $data->id_desa = $nama_desa->id;
             $data->daftar_desa = $this->desa->get_semua_desa();
@@ -186,6 +190,8 @@ class Deskriptif extends Controller {
     function mortalitas($id_desa) {
         $nama_desa = $this->desa->get_desa($id_desa);
         $data = new stdClass();
+        $data->active_data = "deskriptif";
+        $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Mortalitas';
         $data->nama_desa = $nama_desa->nama;
         $data->id_desa = $nama_desa->id;
         $data->daftar_desa = $this->desa->get_semua_desa();
@@ -201,6 +207,8 @@ class Deskriptif extends Controller {
     function natalitas($id_desa) {
         $nama_desa = $this->desa->get_desa($id_desa);
         $data = new stdClass();
+        $data->active_data = "deskriptif";
+        $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Natalitas';
         $data->nama_desa = $nama_desa->nama;
         $data->id_desa = $nama_desa->id;
         $data->daftar_desa = $this->desa->get_semua_desa();
@@ -217,12 +225,15 @@ class Deskriptif extends Controller {
         if($this->penduduk->cek_desa($id_desa)<1) redirect ('deskriptif');
         $nama_desa = $this->desa->get_desa($id_desa);
         $data = new stdClass();
+        $data->active_data = "deskriptif";
+        $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Migrasi';
         $data->nama_desa = $nama_desa->nama;
         $data->id_desa = $nama_desa->id;
         $data->daftar_desa = $this->desa->get_semua_desa();
         $data->jenis_kelamin = $this->penduduk->get_jenis_kelamin($id_desa);
         $data->kelompok_umur = $this->penduduk->get_kelompok_umur($id_desa);
         $data->grafik = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/migrasi/$id_desa' />";
+        $data->grafik2 = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/migrasi/$id_desa/pie' />";
         $data->view_content = "jumlah_penduduk_deskriptif";
         $data->title = "Desa " . $nama_desa->nama;
         $this->load->view('base', $data);
@@ -234,14 +245,18 @@ class Deskriptif extends Controller {
         $data = new stdClass();
         $data->nama_desa = $nama_desa->nama;
         $data->id_desa = $nama_desa->id;
+        $data->active_data = "deskriptif";
         $data->daftar_desa = $this->desa->get_semua_desa();
         if ($variabel == "sdm") {
             $data->grafik = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/sdm_kesehatan/$id_desa' />";
             $data->grafik2 = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/sdm_kesehatan/$id_desa/pie' />";
+            $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Kesehatan > SDM';
         } else if ($variabel == "infrastruktur") {
             $data->grafik = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/infrastruktur_kesehatan/$id_desa' />";
             $data->grafik2 = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/infrastruktur_kesehatan/$id_desa/pie' />";
+            $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Kesehatan > Infrastruktur Gedung';
         }
+        else redirect('deskriptif/kesehatan/sdm');
         $data->view_content = "jumlah_penduduk_deskriptif";
         $data->title = "Desa " . $nama_desa->nama;
         $this->load->view('base', $data);
@@ -251,10 +266,11 @@ class Deskriptif extends Controller {
         if($this->penduduk->cek_desa($id_desa)<1) redirect ('deskriptif');
         $nama_desa = $this->desa->get_desa($id_desa);
         $data = new stdClass();
+        $data->active_data = "deskriptif";
+        $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Keagamaan > Infrastruktur Gedung';
         $data->nama_desa = $nama_desa->nama;
         $data->id_desa = $nama_desa->id;
         $data->daftar_desa = $this->desa->get_semua_desa();
-        ;
         $data->grafik = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/keagamaan/$id_desa' />";
         $data->grafik2 = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/keagamaan/$id_desa/pie' />";
         $data->view_content = "jumlah_penduduk_deskriptif";
@@ -269,13 +285,16 @@ class Deskriptif extends Controller {
         $data->nama_desa = $nama_desa->nama;
         $data->id_desa = $nama_desa->id;
         $data->daftar_desa = $this->desa->get_semua_desa();
-        ;
+        $data->active_data = "deskriptif";
+
         if ($variabel == "hansip") {
             $data->grafik = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/keamanan_hansip/$id_desa' />";
             $data->grafik2 = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/keamanan_hansip/$id_desa/pie' />";
+            $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Keamanan > Hansip';
         } else if ($variabel == "kriminal") {
             $data->grafik = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/keamanan_kriminal/$id_desa' />";
             $data->grafik2 = "<img src='index.php/deskriptif/grafik_jumlah_penduduk/keamanan_kriminal/$id_desa/pie' />";
+            $data->breadcrumb = '<a href="./">Home</a> > <a href="deskriptif">Deskriptif</a> > Keamanan > Hansip';
         }
         $data->view_content = "jumlah_penduduk_deskriptif";
         $data->title = "Desa " . $nama_desa->nama;
